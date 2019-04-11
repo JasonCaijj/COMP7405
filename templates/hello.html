@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Group15</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../static/JS/event.js"></script>
+</head>
+
+<body>
+  <div class="jumbotron text-center">
+    <h1>Option Value Calculator</h1>
+  </div>
+
+  <div class="container">
+    <div id="BS">
+      <h3>Black-Scholes Formulas for European call/put options</h3>
+      <div class="card">
+        <div class="row">
+          <div class="col-md-4 mt-3">
+            <div class="col-md-10">
+              <h2><br></h2>
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Asset Price</span>
+                  </div>
+                  <input type="number" step="0.001" min="0" class="form-control" id="bs_s">
+                </div>
+              </form>
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Volatility</span>
+                  </div>
+                  <input type="number" id="bs_vol" step="0.001" min="0" class="form-control">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-4 mt-3">
+
+            <div class="col-md-10">
+              <h2><br></h2>
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Strike Price</span>
+                  </div>
+                  <input type="number" id="bs_k"step="0.001" min="0" class="form-control">
+                </div>
+              </form>
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Risk-Free Rate</span>
+                  </div>
+                  <input type="number" id="bs_r" step="0.001" min="0" class="form-control">
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-4 mt-3">
+
+            <div class="col-md-10">
+              <h2><br></h2>
+              <form>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Time to Maturity</span>
+                  </div>
+                  <input type="number" id="bs_t" step="0.001" min="0" class="form-control">
+                </div>
+              </form>
+              <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Type</span>
+                    </div>
+                    <select class="form-control" id="bs_type">
+                      <option>Call</option>
+                      <option>Put</option>
+                    </select>
+                  </div>
+                </form>
+            </div>
+          </div>
+
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-4 mt-3">
+            <div class="col-md-10">
+              <button type="button" id="btn_bs_cal" class="btn btn-success">Calculate</button>
+            </div>
+          </div>
+          <div class="col-md-8 mt-3">
+            <div class="col-md-10">
+              <span >Answer: </span>
+              <span id="BS_value">100</span>
+            </div>
+          </div>
+
+          </div>
+        </div>
+    </div>
+
+    <div id="Imp_Vol" class="mt-5">
+      <h3>Implied volatility calculations</h3>
+      <div class="card">
+          <div class="row">
+            <div class="col-md-4 mt-3">
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Asset Price</span>
+                    </div>
+                    <input id="imp_S" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Repo Rate</span>
+                    </div>
+                    <input id="imp_q" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Option Value</span>
+                      </div>
+                      <input id="imp_value" type="number" step="0.001" min="0" class="form-control">
+                    </div>
+                  </form>
+              </div>
+            </div>
+            <div class="col-md-4 mt-3">
+  
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Strike Price</span>
+                    </div>
+                    <input id="imp_K" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Risk-Free Rate</span>
+                    </div>
+                    <input id="imp_r" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-4 mt-3">
+  
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Time to Maturity</span>
+                    </div>
+                    <input id="imp_t" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Type</span>
+                      </div>
+                      <select id="imp_type" class="form-control">
+                        <option>Call</option>
+                        <option>Put</option>
+                      </select>
+                    </div>
+                  </form>
+              </div>
+            </div>
+  
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4 mt-3">
+              <div class="col-md-10">
+                <button type="button" id="btn_imp_cal" class="btn btn-success">Calculate</button>
+              </div>
+            </div>
+            <div class="col-md-8 mt-3">
+              <div class="col-md-10">
+                <span id="imp_ans">Answer</span>
+              </div>
+            </div>
+  
+            </div>
+          </div>
+      <br/>
+      <br/>
+    </div>
+
+    <div id="ClosedForm_Signal">
+      <h3>
+        Closed-form formulas for geometric Asian call/put options
+      </h3>
+      <div class="card">
+          <div class="row">
+            <div class="col-md-4 mt-3">
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Asset Price</span>
+                    </div>
+                    <input id="cfs_S" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Volatility</span>
+                    </div>
+                    <input id="cfs_vol" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">n</span>
+                      </div>
+                      <input id="cfs_N" type="number" step="1" min="0" type="text" class="form-control">
+                    </div>
+                  </form>
+                
+              </div>
+            </div>
+            <div class="col-md-4 mt-3">
+  
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Strike Price</span>
+                    </div>
+                    <input id="cfs_K" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Risk-Free Rate</span>
+                    </div>
+                    <input id="cfs_r" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+            <div class="col-md-4 mt-3">
+  
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Time to Maturity</span>
+                    </div>
+                    <input id="cfs_t" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Type</span>
+                    </div>
+                    <select id="cfs_type" class="form-control">
+                      <option>Call</option>
+                      <option>Put</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+            </div>
+  
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4 mt-3">
+              <div class="col-md-10">
+                <button id="btn_cfs_cal" type="button" class="btn btn-success">Calculate</button>
+              </div>
+            </div>
+            <div class="col-md-8 mt-3">
+              <div class="col-md-10">
+                <span id="cfs_ans">Answer</span>
+              </div>
+            </div>
+  
+            </div>
+          </div>
+      <br/>
+      <br/>
+    </div>
+
+      <div id="ClosedForm_Basket">
+          <h3>
+            Closed-form formulas for geometric basket call/put options
+          </h3>
+          <div class="card">
+              <div class="row">
+                <div class="col-md-4 mt-3">
+                  <div class="col-md-10">
+                    <h2><br></h2>
+                    <form>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Asset Price 1</span>
+                        </div>
+                        <input id="cfb_s1" type="number" step="0.001" min="0" class="form-control">
+                      </div>
+                    </form>
+                    <form>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Asset Price 2</span>
+                        </div>
+                        <input id="cfb_s2" type="number" step="0.001" min="0" class="form-control">
+                      </div>
+                    </form>
+                    <form>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Rho</span>
+                        </div>
+                        <input id="cfb_rho" type="number" step="0.001" class="form-control">
+                      </div>
+                    </form>                    
+                  </div>
+                </div>
+                <div class="col-md-4 mt-3">
+      
+                  <div class="col-md-10">
+                    <h2><br></h2>
+                    <form>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Volatility 1</span>
+                        </div>
+                        <input id="cfb_vol1" type="number" step="0.001" min="0" class="form-control">
+                      </div>
+                    </form>
+                    <form>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Volatility 2</span>
+                        </div>
+                        <input id="cfb_vol2" type="number" step="0.001" min="0" class="form-control">
+                      </div>
+                    </form>
+                    <form>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Risk-Free Rate</span>
+                        </div>
+                        <input id="cfb_r" type="number" step="0.001" min="0" class="form-control">
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-md-4 mt-3">
+      
+                  <div class="col-md-10">
+                    <h2><br></h2>
+                    <form>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Time to Maturity</span>
+                        </div>
+                        <input id="cfb_t" type="number" step="0.001" min="0" class="form-control">
+                      </div>
+                    </form>
+                    <form>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Strike Price</span>
+                        </div>
+                        <input id="cfb_k" type="number" step="0.001" min="0" class="form-control">
+                      </div>
+                    </form>
+                    <form>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">Type</span>
+                        </div>
+                        <select id="cfb_type" class="form-control">
+                          <option>Call</option>
+                          <option>Put</option>
+                        </select>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+      
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-4 mt-3">
+                  <div class="col-md-10">
+                    <button id="btn_cfb_cal" type="button" class="btn btn-success">Calculate</button>
+                  </div>
+                </div>
+                <div class="col-md-8 mt-3">
+                  <div class="col-md-10">
+                    <span id="cfb_ans">Answer</span>
+                  </div>
+                </div>
+      
+                </div>
+              </div>
+          <br/>
+          <br/>
+        </div>
+
+      <div id="MC_Asian">
+        <h3>
+          Monte Carlo method with control variate technique for arithmetic Asian
+          call/put options
+        </h3>
+        <div class="card">
+          <div class="row">
+            <div class="col-md-4 mt-3">
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Asset Price</span>
+                    </div>
+                    <input id="mca_S" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Volatility</span>
+                    </div>
+                    <input id="mca_vol" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">n</span>
+                      </div>
+                      <input id="mca_N" type="number" step="1" min="0" type="text" class="form-control">
+                    </div>
+                  </form>
+                
+              </div>
+            </div>
+            <div class="col-md-4 mt-3">
+  
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Strike Price</span>
+                    </div>
+                    <input id="mca_K" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Risk-Free Rate</span>
+                    </div>
+                    <input id="mca_r" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Num of Paths</span>
+                    </div>
+                    <input id="mca_I" type="number" step="1" min="0" class="form-control">
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+            <div class="col-md-4 mt-3">
+  
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Time to Maturity</span>
+                    </div>
+                    <input id="mca_t" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Type</span>
+                    </div>
+                    <select id="mca_type" class="form-control">
+                      <option>Call</option>
+                      <option>Put</option>
+                    </select>
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Control Variate</span>
+                    </div>
+                    <select id="mca_c_v" class="form-control">
+                      <option>True</option>
+                      <option>False</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+            </div>
+  
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4 mt-3">
+              <div class="col-md-10">
+                <button id="btn_mca_cal" type="button" class="btn btn-success">Calculate</button>
+              </div>
+            </div>
+            <div class="col-md-8 mt-3">
+              <div class="col-md-10">
+                <span id="mca_ans">Answer</span>
+              </div>
+            </div>
+  
+            </div>
+          </div>
+        <br/>
+        <br/>
+      </div>
+
+      <div id="MC_basket">
+        <h3>
+          Monte Carlo method with control variate technique for arithmetic mean
+          basket call/put options
+        </h3>
+        <div class="card">
+          <div class="row">
+            <div class="col-md-4 mt-3">
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Asset Price 1</span>
+                    </div>
+                    <input id="mcb_s1" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Asset Price 2</span>
+                    </div>
+                    <input id="mcb_s2" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Rho</span>
+                    </div>
+                    <input id="mcb_rho" type="number" step="0.001" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Num of Paths</span>
+                    </div>
+                    <input id="mcb_I" type="number" step="1" min="0" class="form-control">
+                  </div>
+                </form>                     
+              </div>
+            </div>
+            <div class="col-md-4 mt-3">
+  
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Volatility 1</span>
+                    </div>
+                    <input id="mcb_vol1" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Volatility 2</span>
+                    </div>
+                    <input id="mcb_vol2" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Risk-Free Rate</span>
+                    </div>
+                    <input id="mcb_r" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Control Variate</span>
+                    </div>
+                    <select id="mcb_c_v" class="form-control">
+                      <option>True</option>
+                      <option>False</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-4 mt-3">
+  
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Time to Maturity</span>
+                    </div>
+                    <input id="mcb_t" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Strike Price</span>
+                    </div>
+                    <input id="mcb_k" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Type</span>
+                    </div>
+                    <select id="mcb_type" class="form-control">
+                      <option>Call</option>
+                      <option>Put</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+            </div>
+  
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4 mt-3">
+              <div class="col-md-10">
+                <button id="btn_mcb_cal" type="button" class="btn btn-success">Calculate</button>
+              </div>
+            </div>
+            <div class="col-md-8 mt-3">
+              <div class="col-md-10">
+                <span id="mcb_ans">Answer</span>
+              </div>
+            </div>
+  
+            </div>
+          </div>
+        <br/>
+        <br/>
+      </div>
+
+      <div id="BTree">
+        <h3>
+          Binomial Tree method for American call/put options
+        </h3>
+        <div class="card">
+          <div class="row">
+            <div class="col-md-4 mt-3">
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Asset Price</span>
+                    </div>
+                    <input id="bt_S" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Volatility</span>
+                    </div>
+                    <input id="bt_vol" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Step</span>
+                      </div>
+                      <input id="bt_N" type="number" step="1" min="0" type="text" class="form-control">
+                    </div>
+                  </form>
+                
+              </div>
+            </div>
+            <div class="col-md-4 mt-3">
+  
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Strike Price</span>
+                    </div>
+                    <input id="bt_K" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Risk-Free Rate</span>
+                    </div>
+                    <input id="bt_r" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                
+              </div>
+            </div>
+            <div class="col-md-4 mt-3">
+  
+              <div class="col-md-10">
+                <h2><br></h2>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Time to Maturity</span>
+                    </div>
+                    <input id="bt_t" type="number" step="0.001" min="0" class="form-control">
+                  </div>
+                </form>
+                <form>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Type</span>
+                    </div>
+                    <select id="bt_type" class="form-control" >
+                      <option>Call</option>
+                      <option>Put</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+            </div>
+  
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-4 mt-3">
+              <div class="col-md-10">
+                <button id="btn_bt_cal" type="button" class="btn btn-success">Calculate</button>
+              </div>
+            </div>
+            <div class="col-md-8 mt-3">
+              <div class="col-md-10">
+                <span id="bt_ans">Answer</span>
+              </div>
+            </div>
+  
+            </div>
+          </div>
+        <br/>
+        <br/>
+      </div>
+    </div>
+</body>
+
+</html>
